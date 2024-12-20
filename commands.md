@@ -201,3 +201,9 @@ apt update
 apt install docker-ce docker-ce-cli containerd.io
 
 -----
+
+docker build -t test-coworking-analytics .
+
+-----
+
+docker run --network="host" test-coworking-analytics
