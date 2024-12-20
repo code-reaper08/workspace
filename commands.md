@@ -54,5 +54,60 @@ create cluster --name my-rubric-cluster --region us-east-1 --nodegroup-name my-r
 2024-12-20 13:55:45 [ℹ]  kubectl command should work with "/root/.kube/config", try 'kubectl get nodes'
 2024-12-20 13:55:45 [✔]  EKS cluster "my-rubric-cluster" in "us-east-1" region is ready
 ```
+------
 
 aws eks --region us-east-1 update-kubeconfig --name my-rubric-cluster
+
+output: Added new context arn:aws:eks:us-east-1:667257161327:cluster/my-rubric-cluster to /root/.kube/config
+
+-----
+
+kubectl config current-context
+
+output: arn:aws:eks:us-east-1:667257161327:cluster/my-rubric-cluster
+
+-----
+
+ kubectl get namespace
+
+ output:
+ NAME              STATUS   AGE
+default           Active   36m
+kube-node-lease   Active   36m
+kube-public       Active   36m
+kube-system       Active   36m
+
+-----
+
+    Database name: mydatabase
+    User name: myuser
+    Password: mypassword
+
+-----
+
+kubectl apply -f pvc.yaml
+kubectl apply -f pv.yaml
+kubectl apply -f postgresql-deployment.yaml
+
+-----
+
+kubectl get pods
+
+postgresql-688c5c767c-r6947
+
+-----
+
+kubectl exec -it postgresql-688c5c767c-r6947 -- bash
+
+----
+
+kubectl apply -f postgresql-service.yaml
+
+-----
+
+kubectl get svc
+
+-----
+
+apt update
+apt install postgresql postgresql-contrib
