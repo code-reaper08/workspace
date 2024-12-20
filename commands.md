@@ -111,3 +111,93 @@ kubectl get svc
 
 apt update
 apt install postgresql postgresql-contrib
+
+------
+
+kubectl port-forward service/postgresql-service 5433:5432 &
+
+--------
+
+export DB_PASSWORD=mypassword
+PGPASSWORD="$DB_PASSWORD" psql --host 127.0.0.1 -U myuser -d mydatabase -p 5433 < 1_create_tables.sql
+
+export DB_PASSWORD=mypassword
+PGPASSWORD="$DB_PASSWORD" psql --host 127.0.0.1 -U myuser -d mydatabase -p 5433 < 2_seed_users.sql
+
+export DB_PASSWORD=mypassword
+PGPASSWORD="$DB_PASSWORD" psql --host 127.0.0.1 -U myuser -d mydatabase -p 5433 < 3_seed_tokens.sql
+
+-----
+
+PGPASSWORD="$DB_PASSWORD" psql --host 127.0.0.1 -U myuser -d mydatabase -p 5433
+
+-----
+
+select * from users;
+
+-----
+
+exit and \q for quiting
+
+----
+
+# Update the local package index with the latest packages from the repositories
+apt update
+
+# Install a couple of packages to successfully install postgresql server locally
+apt install build-essential libpq-dev
+
+# Update python modules to successfully build the required modules
+pip install --upgrade pip setuptools wheel
+
+-----
+
+pip install -r requirements.txt
+
+-----
+
+export DB_USERNAME=myuser
+export DB_PASSWORD=${POSTGRES_PASSWORD}
+export DB_HOST=127.0.0.1
+export DB_PORT=5433
+export DB_NAME=mydatabase
+
+-----
+
+python app.py
+
+-----
+
+add Werkzeug==2.2.2 in requirements.txt to solve ImportError: cannot import name 'url_quote' from 'werkzeug.urls' (/usr/local/lib/python3.8/dist-packages/werkzeug/urls.py)
+
+----
+
+curl <BASE_URL>/api/reports/daily_usage
+
+in our context: curl 127.0.0.1:5153/api/reports/daily_usage
+
+----
+
+TypeError: Object of type function is not JSON serializable
+
+This happens because we just name the function inside jsonify, which woudn't invoke the function,
+
+```py
+
+@app.route("/api/reports/daily_usage", methods=["GET"])
+def daily_visits():
+    # note here get_daily_visits() not get_daily_visits
+    return jsonify(get_daily_visits())
+
+```
+
+----
+
+curl 127.0.0.1:5153/api/reports/user_visits
+
+----
+
+apt update
+apt install docker-ce docker-ce-cli containerd.io
+
+-----
