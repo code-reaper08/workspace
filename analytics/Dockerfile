@@ -7,6 +7,8 @@ WORKDIR /src
 # copy analytics folder to /src
 COPY . /src/
 
+RUN ls
+
 COPY ./requirements.txt /src/
 
 RUN pip install --upgrade pip && pip install -r requirements.txt
