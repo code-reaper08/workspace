@@ -9,8 +9,6 @@ COPY . /src/
 
 RUN ls
 
-COPY ./requirements.txt /src/
-
 RUN pip install --upgrade pip && pip install -r requirements.txt
 
 EXPOSE 5153
