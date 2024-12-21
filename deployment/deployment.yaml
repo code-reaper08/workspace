@@ -19,7 +19,7 @@ metadata:
   labels:
     name: coworking
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       service: coworking
@@ -53,6 +53,4 @@ spec:
             secretKeyRef:
               name: dbsecret
               key: DB_PASSWORD
-        ports:
-        - containerPort: 5153
       restartPolicy: Always
