@@ -7,11 +7,9 @@ WORKDIR /src
 # copy analytics folder to /src
 COPY . /src/
 
-COPy ./requirements.txt /src/
+COPY ./requirements.txt /src/
 
 RUN pip install --upgrade pip && pip install -r requirements.txt
-
-COPY src/ /src/
 
 EXPOSE 5153
 
