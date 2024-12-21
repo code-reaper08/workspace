@@ -5,9 +5,13 @@ FROM python:3.8-slim
 WORKDIR /src
 
 # copy analytics folder to /src
-COPY . .
+COPY . /src/
+
+COPy ./requirements.txt /src/
 
 RUN pip install --upgrade pip && pip install -r requirements.txt
+
+COPY src/ /src/
 
 EXPOSE 5153
 
